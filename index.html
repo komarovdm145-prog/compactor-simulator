@@ -6,26 +6,26 @@
   <meta name="theme-color" content="#08111f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Compactor Simulator v5</title>
+  <title>Compactor Simulator v6</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="roleGate" class="role-gate">
   <div class="role-box">
-    <div class="eyebrow">SUND BIRSTA · TRAINING SIM v5</div>
+    <div class="eyebrow">SUND BIRSTA · TRAINING SIM v6</div>
     <h1>Выбери рабочее место</h1>
-    <p>В этой версии оператор и механик — отдельные роли. Цикл обвязки выполняется в два прохода: 4 головы + ещё 4 вязки.</p>
+    <p>Оператор ведёт цикл и работает с HMI. Механик получает вызов при неисправности, проверяет PLC, устройства заправки, вязальные головы и устраняет причину.</p>
     <div class="role-grid">
-      <button id="chooseOperator" class="role-card"><b>👷 ОПЕРАТОР</b><span>Запуск · HMI · двойная обвязка · контроль датчиков · аварии</span></button>
-      <button id="chooseMechanic" class="role-card"><b>🔧 МЕХАНИК</b><span>PLC I/O · B24/B28 · Node 26 · вязальные головы · ремонт</span></button>
+      <button id="chooseOperator" class="role-card"><b>👷 ОПЕРАТОР</b><span>Сжатие · двойная обвязка 4+4 · HMI · датчики · квитирование</span></button>
+      <button id="chooseMechanic" class="role-card"><b>🔧 МЕХАНИК</b><span>PLC I/O · B24/B28 · энкодеры · Node 26 · головы · ремонт</span></button>
     </div>
   </div>
 </div>
 
 <div class="app">
 <header class="topbar">
-  <div><div class="eyebrow">SUND BIRSTA · TRAINING SIM v5</div><h1>Compactor Simulator</h1></div>
+  <div><div class="eyebrow">SUND BIRSTA · TRAINING SIM v6</div><h1>Compactor Simulator</h1></div>
   <div class="top-actions"><span id="roleBadge" class="role-badge">ОПЕРАТОР</span><button id="changeRoleBtn" class="icon-btn">⇄</button><button id="soundBtn" class="icon-btn">🔊</button></div>
 </header>
 
@@ -59,7 +59,7 @@
       </div></div>
       <div id="wireFeed" class="wire-feed"><i></i></div><div id="wireLoop" class="wire-loop"></div>
       <div class="head-cluster"><div class="head-label">4 вязальные головы</div><div class="heads"><button class="head" data-head="1">1</button><button class="head" data-head="2">2</button><button class="head" data-head="3">3</button><button class="head" data-head="4">4</button></div></div>
-      <div class="cycle-pass"><span>ЦИКЛ ВЯЗКИ</span><strong id="passValue">—</strong></div>
+      <div class="cycle-pass"><span>СЕРИЯ ОБВЯЗКИ</span><strong id="passValue">—</strong></div>
       <div class="compression-scale"><span>ОСЕВОЙ РАЗМЕР</span><strong id="gapValue">100%</strong></div>
     </div>
     <div class="sensors" id="sensorStrip"></div>
@@ -71,11 +71,11 @@
       <div class="control-block"><label>Сила натяжения</label><div class="segmented"><button id="lowBtn" class="active">LOW</button><button id="highBtn">HIGH</button></div></div>
       <div class="control-block"><label>Подпрессовка</label><div class="segmented"><button id="singleBtn" class="active">1×</button><button id="doubleBtn">2×</button></div></div>
     </div>
-    <div class="cycle-mode"><span>Обвязка:</span><strong>2 цикла × 4 головы = 8 вязок</strong></div>
+    <div class="cycle-mode"><span>Обвязка:</span><strong>Серия 1: 4 головы → Серия 2: ещё 4 головы = 8 вязок</strong></div>
     <div class="action-grid"><button id="startBtn" class="primary">▶ Запустить цикл</button><button id="openHmiBtn" class="secondary">🖥 HMI</button><button id="ackBtn" class="secondary">✓ Квитировать</button><button id="callMechanicBtn" class="secondary">🔧 Механик</button><button id="resetBtn" class="danger">↻ Сброс</button></div>
   </section>
 
-  <section class="card cycle-card"><h2>Последовательность реального цикла</h2><div id="cycleSteps" class="cycle-steps"></div></section>
+  <section class="card cycle-card"><h2>Последовательность цикла</h2><div id="cycleSteps" class="cycle-steps"></div></section>
 </section>
 
 <section id="mechanicView" class="hidden">
@@ -101,30 +101,48 @@
 <section id="hmiView" class="hidden">
   <section class="card hmi-shell">
     <div class="real-hmi-top"><span class="air-ok">Воздух OK</span><strong>SUND <i></i> BIRSTA</strong><span id="hmiClock">00:00</span></div>
-    <div class="hmi-page-tabs"><button data-page="plc" class="active">PLC I/O</button><button data-page="feeder">Устройство заправки</button><button data-page="head">Вязальная головка</button></div>
+    <div class="hmi-page-tabs"><button data-page="main" class="active">Главная</button><button data-page="plc">PLC I/O</button><button data-page="feeder">Устройство заправки</button><button data-page="head">Вязальная головка</button></div>
 
-    <div id="hmiPlcPage" class="hmi-page">
+    <div id="hmiMainPage" class="hmi-page">
+      <div class="hmi-page-title">PCH · Компактор</div>
+      <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:10px">
+        <div style="min-height:210px;background:#e9e9e3;border:1px solid #a9aaa5;border-radius:8px;position:relative;overflow:hidden">
+          <div style="position:absolute;left:8%;right:8%;top:42%;height:40px;background:#3c91c5;border-radius:6px"></div>
+          <div style="position:absolute;left:10%;top:25%;width:95px;height:125px;background:#237eb5;border:5px solid #17638f"></div>
+          <div style="position:absolute;right:10%;top:25%;width:95px;height:125px;background:#237eb5;border:5px solid #17638f"></div>
+          <div style="position:absolute;left:37%;right:37%;top:32%;height:105px;background:#474b4d;border-radius:15px;box-shadow:inset 0 0 15px #111"></div>
+          <div style="position:absolute;left:44%;right:44%;top:6%;height:55px;background:#c79b22;border-radius:4px"></div>
+          <b style="position:absolute;left:0;right:0;bottom:8px;text-align:center;color:#50606a;font-size:11px">СХЕМА КОМПАКТОРА</b>
+        </div>
+        <div style="display:grid;gap:7px;color:#31383c">
+          <div style="background:#f7f7f2;border:1px solid #bbb;padding:9px;border-radius:7px"><small>Состояние</small><strong id="mainState" style="display:block;color:#2e7d32">ГОТОВ</strong></div>
+          <div style="background:#f7f7f2;border:1px solid #bbb;padding:9px;border-radius:7px"><small>Серия обвязки</small><strong id="mainPass" style="display:block">—</strong></div>
+          <div style="background:#f7f7f2;border:1px solid #bbb;padding:9px;border-radius:7px"><small>Натяжение</small><strong id="mainTension" style="display:block">LOW</strong></div>
+          <div style="background:#f7f7f2;border:1px solid #bbb;padding:9px;border-radius:7px"><small>Авария</small><strong id="mainAlarm" style="display:block">—</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hmiPlcPage" class="hmi-page hidden">
       <div class="hmi-page-title">Входы / Выходы</div>
       <div class="plc-columns">
         <div class="plc-panel"><h3>Входы</h3><div id="plcInputs"></div></div>
         <div class="plc-panel"><h3>Выходы</h3><div id="plcOutputs"></div></div>
       </div>
-      <div class="encoder-box"><h3>Положение / импульсы U1–U4</h3><div class="encoder-grid" id="encoderGrid"></div></div>
+      <div class="encoder-box"><h3>Импульсные кодировщики U1–U4</h3><div class="encoder-grid" id="encoderGrid"></div></div>
       <div class="machine-io"><h3>Пресс-плита 2 / каретка</h3><div id="machineIoPanel" class="io-panel"></div></div>
     </div>
 
     <div id="hmiFeederPage" class="hmi-page hidden">
       <div class="hmi-page-title">Устройство заправки <span id="feederUnitTitle">1</span> статус</div>
       <div class="feeder-layout">
-        <div class="feeder-diagram">
-          <div class="wheel w1"></div><div class="wheel w2"></div><div class="wheel w3"></div><div class="wheel w4"></div><div class="wheel w5"></div><div class="wheel w6"></div><div class="big-wheel"></div><div class="feeder-wire"></div>
-        </div>
+        <div class="feeder-diagram"><div class="wheel w1"></div><div class="wheel w2"></div><div class="wheel w3"></div><div class="wheel w4"></div><div class="wheel w5"></div><div class="wheel w6"></div><div class="big-wheel"></div><div class="feeder-wire"></div></div>
         <div class="feeder-stats">
           <div><span>Наличие проволоки B24</span><i id="feedB24" class="lamp"></i></div>
           <div><span>Натяжной ролик Y22A</span><i id="feedY22A" class="lamp"></i></div>
           <div><span>Натяжной ролик Y22B</span><i id="feedY22B" class="lamp"></i></div>
-          <div class="value-row"><span>Позиция проволоки, имп.</span><strong id="feedPosition">0</strong></div>
-          <div class="value-row"><span>Скорость заправки/утяжки</span><strong id="feedSpeed">0</strong></div>
+          <div class="value-row"><span>Положение / импульсы</span><strong id="feedPosition">0</strong></div>
+          <div class="value-row"><span>Скорость, имп/с</span><strong id="feedSpeed">0</strong></div>
           <div><span>Импульсы движения B28</span><i id="feedB28" class="lamp"></i></div>
         </div>
       </div>
@@ -136,15 +154,8 @@
       <div class="head-layout">
         <div class="head-diagram"><div class="head-blue body"></div><div class="head-blue arm"></div><div class="head-cylinder"></div><div class="head-clamp-shape"></div><div class="head-knife-shape"></div></div>
         <div class="head-live">
-          <div><span>Y1 Зажим</span><i id="hy1" class="lamp"></i></div>
-          <div><span>Y2 Окручивание</span><i id="hy2" class="lamp"></i></div>
-          <div><span>Y3 Нож</span><i id="hy3" class="lamp"></i></div>
-          <div><span>Y5 Возврат</span><i id="hy5" class="lamp"></i></div>
-          <div><span>B1</span><i id="hb1" class="lamp"></i></div>
-          <div><span>B3</span><i id="hb3" class="lamp"></i></div>
-          <div><span>B5</span><i id="hb5" class="lamp"></i></div>
-          <div><span>B8</span><i id="hb8" class="lamp"></i></div>
-          <div><span>B20</span><i id="hb20" class="lamp"></i></div>
+          <div><span>Y1 Зажим</span><i id="hy1" class="lamp"></i></div><div><span>Y2 Скрутка</span><i id="hy2" class="lamp"></i></div><div><span>Y3 Нож</span><i id="hy3" class="lamp"></i></div><div><span>Y5 Возврат</span><i id="hy5" class="lamp"></i></div>
+          <div><span>B1</span><i id="hb1" class="lamp"></i></div><div><span>B3</span><i id="hb3" class="lamp"></i></div><div><span>B5</span><i id="hb5" class="lamp"></i></div><div><span>B8</span><i id="hb8" class="lamp"></i></div><div><span>B20</span><i id="hb20" class="lamp"></i></div>
         </div>
       </div>
       <div class="unit-select" id="headUnitSelect"><button data-unit="1" class="active">1</button><button data-unit="2">2</button><button data-unit="3">3</button><button data-unit="4">4</button></div>
@@ -154,7 +165,7 @@
   </section>
 </section>
 
-<section class="card log-card"><div class="log-head"><h2>Журнал смены</h2><span id="qualityBadge" class="badge">—</span></div><div id="log" class="log"><div class="log-entry info">v5: двойная обвязка 4+4 и HMI по видео.</div></div></section>
+<section class="card log-card"><div class="log-head"><h2>Журнал смены</h2><span id="qualityBadge" class="badge">—</span></div><div id="log" class="log"><div class="log-entry info">v6: цикл 4+4 и HMI перестроены по двум видео.</div></div></section>
 </main>
 </div>
 <script src="app.js"></script>
