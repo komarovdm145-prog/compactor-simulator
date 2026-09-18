@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#07111e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Compactor Trainer v7</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="v7.css">
+</head>
+<body>
+<div id="roleGate" class="role-gate">
+  <div class="role-dialog">
+    <div class="kicker">SUND BIRSTA · PCH-ALFA / KNB · TRAINER v7</div>
+    <h1>Учебный тренажёр компактора</h1>
+    <p>Профиль машины собран по твоему PDF, фото, видео HMI и фактическим сигналам A401 / Node 26.</p>
+    <div class="role-grid">
+      <button id="chooseOperator" class="role-choice"><b>👷 Оператор</b><span>Автоматический цикл · HMI · подпрессовка · 4+4 вязки · квитирование</span></button>
+      <button id="chooseMechanic" class="role-choice"><b>🔧 Механик</b><span>PLC I/O · датчики · кодировщики · Node 26 · диагностика · обслуживание</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+<header class="topbar">
+  <div><div class="kicker">SUND BIRSTA · PCH-ALFA / KNB · v7</div><h1>Compactor Trainer</h1></div>
+  <div class="top-actions"><span id="roleBadge" class="role-badge">ОПЕРАТОР</span><button id="changeRoleBtn" class="small-btn">⇄</button><button id="soundBtn" class="small-btn">🔊</button></div>
+</header>
+
+<section class="hud">
+  <div class="card stat"><span>Бунты</span><strong id="coils">0</strong></div>
+  <div class="card stat"><span>Вязки</span><strong id="tiesCount">0</strong></div>
+  <div class="card stat"><span>Аварии</span><strong id="faults">0</strong></div>
+  <div class="card stat"><span>Счёт</span><strong id="score">0</strong></div>
+</section>
+
+<nav class="tabs">
+  <button id="operatorTab" class="active">Оператор</button>
+  <button id="mechanicTab">Механик</button>
+  <button id="hmiTab">HMI</button>
+</nav>
+
+<main>
+<section id="operatorView">
+  <section class="card machine-card">
+    <div class="section-head"><b>КОМПАКТОР · РАБОЧАЯ ЗОНА</b><span id="machineState" class="pill ok">ГОТОВ</span></div>
+    <div id="machineScene" class="machine-scene">
+      <div class="overhead blue"></div><div class="overhead yellow"></div>
+      <div class="rail rail1"></div><div class="rail rail2"></div>
+      <div id="pressLeft" class="press-tower left"><div class="brand">SUND / BIRSTA</div><div class="plate"></div><small>PRESS 1</small></div>
+      <div id="pressRight" class="press-tower right"><div class="brand">SUND / BIRSTA</div><div class="plate"></div><small>PRESS 2</small></div>
+      <div id="guideCarriage" class="guide-carriage"><span>GUIDE</span></div>
+      <div class="coil-wrap"><div id="coil" class="coil"><div class="coil-lines"></div>
+        <div class="tie t1a" id="tie1a"></div><div class="tie t1b" id="tie1b"></div>
+        <div class="tie t2a" id="tie2a"></div><div class="tie t2b" id="tie2b"></div>
+        <div class="tie t3a" id="tie3a"></div><div class="tie t3b" id="tie3b"></div>
+        <div class="tie t4a" id="tie4a"></div><div class="tie t4b" id="tie4b"></div>
+        <div id="wireLoop" class="wire-loop"></div><div id="jamWire" class="jam-wire"></div>
+      </div></div>
+      <div class="head-bank"><span>KNB HEADS</span><div class="heads"><i data-head="1">1</i><i data-head="2">2</i><i data-head="3">3</i><i data-head="4">4</i></div></div>
+      <div class="scene-readout"><div><span>ПРОХОД</span><strong id="passValue">—</strong></div><div><span>СЖАТИЕ</span><strong id="gapValue">100%</strong></div><div><span>УСИЛИЕ</span><strong id="forceValue">45 t</strong></div></div>
+    </div>
+    <div id="sensorStrip" class="sensor-strip"></div>
+  </section>
+
+  <section class="card control-card">
+    <div class="section-head"><h2>Пульт оператора</h2><span id="operatorTask" class="pill">ИСХОДНОЕ</span></div>
+    <div class="controls-grid">
+      <label>Усилие подпрессовки, т<input id="forceSlider" type="range" min="20" max="60" value="45"><strong id="forceLabel">45 т</strong></label>
+      <label>Подпрессовка<div class="seg"><button id="singleBtn">1×</button><button id="doubleBtn" class="active">2×</button></div></label>
+      <label>Натяжение<div class="seg"><button id="lowBtn" class="active">LOW</button><button id="highBtn">HIGH</button></div></label>
+      <label>Режим<div class="seg"><button id="localBtn">МЕСТНЫЙ</button><button id="remoteBtn" class="active">ДИСТ.</button></div></label>
+    </div>
+    <div class="notice">Рабочий профиль: <b>две серии обвязки × 4 головы = 8 вязок</b>. Бунт остаётся зажатым до завершения второй серии.</div>
+    <div class="action-grid"><button id="startBtn" class="primary">▶ ПУСК ЦИКЛА</button><button id="openHmiBtn">🖥 HMI</button><button id="ackBtn">✓ КВИТ.</button><button id="callMechanicBtn">🔧 ВЫЗВАТЬ</button><button id="resetBtn" class="danger">↻ СБРОС</button></div>
+  </section>
+
+  <section class="card timeline-card"><h2>Рабочий цикл</h2><div id="cycleSteps" class="timeline"></div></section>
+</section>
+
+<section id="mechanicView" class="hidden">
+  <section class="card mechanic-card">
+    <div class="section-head"><h2>Рабочее место механика</h2><span id="faultCode" class="pill">НЕТ АВАРИИ</span></div>
+    <p id="mechanicPrompt" class="prompt">Ожидание вызова. Можно открыть диагностику PLC или выполнить профилактику.</p>
+    <div class="health-grid">
+      <div><span>Головки KNB</span><strong id="headHealth">100%</strong></div><div><span>Направляющая PP2</span><strong id="guideHealth">100%</strong></div><div><span>B28 / муфта</span><strong id="encoderHealth">100%</strong></div><div><span>Node 26</span><strong id="ioHealth">100%</strong></div><div><span>Трайб / натяжение</span><strong id="tensionHealth">100%</strong></div>
+    </div>
+    <div class="mechanic-tools"><button data-openhmi="plc">PLC I/O</button><button data-openhmi="node26">A401 / Node 26</button><button data-openhmi="feeder">Трайбаппарат</button><button data-openhmi="head">Головка KNB</button><button data-openhmi="maint">ТО / счётчики</button></div>
+    <h3>Поиск причины</h3><div id="inspectionGrid" class="inspection-grid"></div>
+    <div id="repairPanel" class="repair-panel hidden"><h3>Действие</h3><div id="repairActions" class="repair-actions"></div></div>
+    <h3>Профилактика</h3>
+    <div class="maintenance-grid">
+      <button data-maint="clean">Обдув путей проволоки</button><button data-maint="guide">Очистить направляющие</button><button data-maint="encoder">Проверить B28/муфту</button><button data-maint="head">Осмотреть зажим/нож/скрутчик</button><button data-maint="io">Перепроверить Node 26</button><button data-maint="simalube">Проверить Simalube</button>
+    </div>
+    <button id="returnBtn" class="full-btn">← Передать оператору</button>
+  </section>
+</section>
+
+<section id="hmiView" class="hidden">
+  <section class="hmi-shell">
+    <div class="hmi-top"><span id="airState">ВОЗДУХ OK</span><b>SUND <em></em> BIRSTA</b><span id="hmiClock">00:00</span></div>
+    <div class="hmi-page-tabs" id="hmiTabs">
+      <button data-page="main" class="active">Главная</button><button data-page="prepress">Алгоритм</button><button data-page="preparams">Параметры</button><button data-page="status">Статус</button><button data-page="plc">I/O U1–U4</button><button data-page="node26">Node 26</button><button data-page="feeder">Заправка</button><button data-page="head">Головка</button><button data-page="maint">ТО</button>
+    </div>
+
+    <div id="page-main" class="hmi-page">
+      <div class="hmi-title">PCH-ALFA · ГЛАВНОЕ МЕНЮ</div>
+      <div class="main-machine"><div class="mini-press left"></div><div class="mini-coil"></div><div class="mini-press right"></div></div>
+      <div class="head-enable"><span>Вязальные головки</span><button data-enable-head="1" class="on">1</button><button data-enable-head="2" class="on">2</button><button data-enable-head="3" class="on">3</button><button data-enable-head="4" class="on">4</button></div>
+      <div class="hmi-shortcuts"><button data-goto="prepress">Алгоритм подпрессовки</button><button data-goto="preparams">Параметры подпрессовки</button><button data-goto="status">Статус подпрессовки</button><button data-goto="plc">Параметры обвязки / I/O</button><button data-goto="maint">Счётчики / ТО</button></div>
+      <div class="hmi-status-row"><div><span>Режим</span><b id="hmiMode">ДИСТАНЦИОННЫЙ</b></div><div><span>Цикл</span><b id="hmiCycle">ИСХОДНОЕ</b></div><div><span>Авария</span><b id="hmiAlarm">—</b></div></div>
+    </div>
+
+    <div id="page-prepress" class="hmi-page hidden">
+      <div class="hmi-title">АЛГОРИТМ ПОДПРЕССОВКИ</div>
+      <div id="prepressFlow" class="flow"></div>
+      <div class="explain-box"><b>Логика PDF:</b> фаза 1 — Y80/Y81/Y82/Y83 с регенерацией; положение плит контролируется кодировщиками B51/B52. При усилии &gt;30 т после предварительного контакта Y81/Y83 отключаются, скорость падает, усилие увеличивается. При двойной подпрессовке плиты отходят примерно на 100 мм и снова сходятся.</div>
+    </div>
+
+    <div id="page-preparams" class="hmi-page hidden">
+      <div class="hmi-title">ПАРАМЕТРЫ ПОДПРЕССОВКИ / ОБВЯЗКИ</div>
+      <div class="param-grid">
+        <label>Усилие подпрессовки <strong id="paramForce">45 т</strong></label>
+        <label>Двойная подпрессовка <strong id="paramDouble">ВКЛ</strong></label>
+        <label>Низкая скорость подачи <strong>30% (PDF)</strong></label>
+        <label>Останов после B2 <strong>425 имп. (PDF)</strong></label>
+        <label>Низкая скорость, профиль линии <strong>≈220 имп/с</strong></label>
+        <label>Значения с твоего HMI <strong>9200 / 400*</strong></label>
+      </div>
+      <small>*Назначение 9200/400 в игре помечено как профиль реальной линии без выдуманного названия до получения крупного фото страницы параметров.</small>
+    </div>
+
+    <div id="page-status" class="hmi-page hidden">
+      <div class="hmi-title">СТАТУС КОМПАКТОРА</div><div id="machineStatusGrid" class="io-grid"></div>
+      <div class="encoder-pair"><div><span>B51 PP1 position</span><strong id="pp1Pos">0</strong></div><div><span>B52 PP2 position</span><strong id="pp2Pos">0</strong></div></div>
+    </div>
+
+    <div id="page-plc" class="hmi-page hidden">
+      <div class="hmi-title">ВХОДЫ / ВЫХОДЫ ВЯЗАЛЬНЫХ ГОЛОВОК U1–U4</div>
+      <div class="plc-two"><div><h3>Входы</h3><div id="plcInputs"></div></div><div><h3>Выходы</h3><div id="plcOutputs"></div></div></div>
+      <h3>Импульсные кодировщики</h3><div id="encoderGrid" class="encoder-grid"></div>
+    </div>
+
+    <div id="page-node26" class="hmi-page hidden">
+      <div class="hmi-title">I/O BOX -A401 · NODE 26 · SIEMENS ET200S</div>
+      <div id="node26Grid" class="node-grid"></div>
+      <div class="explain-box">Профиль именно твоей машины: U010:01 — B56/B58/B64; U010:02 — B52; U010:03 — B69; U030:01 — 1Y21…4Y21 GUIDE FLAPS; U030:02 — Y68/Y69.</div>
+    </div>
+
+    <div id="page-feeder" class="hmi-page hidden">
+      <div class="hmi-title">УСТРОЙСТВО ЗАПРАВКИ <span id="feederUnitTitle">1</span> · СТАТУС</div>
+      <div class="feeder-layout"><div class="feeder-drawing"><div class="feed-wheel big"></div><i class="fw1"></i><i class="fw2"></i><i class="fw3"></i><i class="fw4"></i><div class="feed-wire"></div></div>
+      <div class="live-list"><div>B24 Наличие проволоки <i id="feedB24" class="lamp"></i></div><div>B28 Импульсы <i id="feedB28" class="lamp"></i></div><div>Y22 Прижимные ролики <i id="feedY22" class="lamp"></i></div><div>Y23 Подача / натяжение <i id="feedY23" class="lamp"></i></div><div>Позиция <strong id="feedPosition">0</strong> имп.</div><div>Скорость <strong id="feedSpeed">0</strong> имп/с</div></div></div>
+      <div id="feederUnitSelect" class="unit-select"></div>
+    </div>
+
+    <div id="page-head" class="hmi-page hidden">
+      <div class="hmi-title">ВЯЗАЛЬНАЯ ГОЛОВКА <span id="headUnitTitle">1</span> · СТАТУС</div>
+      <div class="head-layout"><div class="head-sketch"><div class="twister"></div><div class="clamp-fixed">FIXED CLAMP</div><div class="knife">KNIFE</div></div><div id="headLive" class="live-list"></div></div>
+      <div id="headUnitSelect" class="unit-select"></div>
+    </div>
+
+    <div id="page-maint" class="hmi-page hidden">
+      <div class="hmi-title">ТЕХОБСЛУЖИВАНИЕ / СЧЁТЧИКИ</div>
+      <div class="counter-grid"><div><span>Полные циклы бунта</span><strong id="cntCoils">0</strong></div><div><span>Циклы головы 1–4</span><strong id="cntHeads">0</strong></div><div><span>Подпрессовки</span><strong id="cntPress">0</strong></div></div>
+      <div class="maintenance-reference">
+        <p><b>Каждая смена / ежедневно:</b> обдув, осмотр утечек, качество узлов, очистка направляющих, скрутчика, зажима, ножа и подающих роликов.</p>
+        <p><b>Еженедельно:</b> полная очистка путей проволоки; PDF допускает дизель как неагрессивный очиститель сильно загрязнённых поверхностей.</p>
+        <p><b>Каждые 3 месяца:</b> кассета Simalube KNB — SL14.125, 4×125 мл. Сроки корректируют по фактическому износу.</p>
+        <p><b>Ресурс из PDF:</b> ролик/ось зажима ~100 000 циклов; зажимной инструмент ~200 000; уплотнения KNB ~400 000; нажимные цилиндры компактора ~500 000.</p>
+      </div>
+    </div>
+
+    <div class="hmi-bottom"><button id="hmiHome">⌂</button><button id="hmiAck">КВИТИРОВАНИЕ</button><button id="hmiOrigin" class="green">ИСХОДНОЕ</button><button id="hmiToOperator">ОПЕРАТОР</button><button id="hmiToMechanic">МЕХАНИК</button></div>
+  </section>
+</section>
+
+<section class="card log-card"><div class="section-head"><h2>Журнал смены</h2><span id="qualityBadge" class="pill">—</span></div><div id="log" class="log"></div></section>
+</main>
+</div>
+<script src="v7a.js"></script><script src="v7b.js"></script><script src="v7c.js"></script><script src="v7d.js"></script>
+</body>
+</html>
