@@ -1,46 +1,19 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-  <meta name="theme-color" content="#111827" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Compactor Simulator</title>
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="app">
-    <header class="topbar">
-      <div>
-        <div class="eyebrow">SUND BIRSTA · TRAINING SIM</div>
-        <h1>Compactor Simulator</h1>
-      </div>
-      <button id="soundBtn" class="icon-btn" aria-label="Звук">🔊</button>
-    </header>
-    <section class="hud">
-      <div class="card stat"><span>Счёт</span><strong id="score">0</strong></div>
-      <div class="card stat"><span>Серия</span><strong id="streak">0</strong></div>
-      <div class="card stat"><span>Бунты</span><strong id="coils">0</strong></div>
-      <div class="card stat"><span>Аварии</span><strong id="faults">0</strong></div>
-    </section>
-    <main>
-      <section class="machine card">
-        <div class="machine-title"><span>КОМПАКТОР</span><span id="machineState" class="state-ok">ГОТОВ</span></div>
-        <div class="scene">
-          <div class="press left" id="pressLeft"></div>
-          <div class="coil-wrap"><div class="coil" id="coil"><div class="coil-hole"></div><div class="strap strap1" id="strap1"></div><div class="strap strap2" id="strap2"></div><div class="strap strap3" id="strap3"></div><div class="strap strap4" id="strap4"></div></div></div>
-          <div class="press right" id="pressRight"></div>
-          <div class="head-panel"><div class="head-label">Вязальные головы</div><div class="heads"><button class="head" data-head="1">1</button><button class="head" data-head="2">2</button><button class="head" data-head="3">3</button><button class="head" data-head="4">4</button></div></div>
-        </div>
-        <div class="sensors"><div class="sensor"><span>B24</span><i id="b24"></i></div><div class="sensor"><span>B28</span><i id="b28"></i></div><div class="sensor"><span>B56</span><i id="b56"></i></div><div class="sensor"><span>B58</span><i id="b58"></i></div><div class="sensor"><span>B64</span><i id="b64"></i></div><div class="sensor"><span>B69</span><i id="b69"></i></div></div>
-      </section>
-      <section class="controls card"><h2>Панель оператора</h2><div class="control-grid"><div class="control-block"><label>Сила натяжения</label><div class="segmented"><button id="lowBtn" class="active">LOW</button><button id="highBtn">HIGH</button></div></div><div class="control-block"><label>Подпрессовка</label><div class="segmented"><button id="singleBtn" class="active">1×</button><button id="doubleBtn">2×</button></div></div></div><div class="action-grid"><button id="startBtn" class="primary">▶ Запустить цикл</button><button id="diagnoseBtn" class="secondary">🔎 Диагностика</button><button id="resetBtn" class="danger">↻ Сброс</button></div></section>
-      <section class="card log-card"><div class="log-head"><h2>Журнал</h2><span id="qualityBadge" class="badge">—</span></div><div id="log" class="log"><div class="log-entry info">Система готова. Настрой режим и запусти цикл.</div></div></section>
-      <section class="card help"><h2>Цель</h2><p>Обвязывай бунты без аварий. Следи за датчиками, натяжением проволоки и работой вязальных голов. При неисправности используй диагностику.</p></section>
-    </main>
-  </div>
-<script src="app.js"></script>
-</body>
-</html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#08111f"><meta name="apple-mobile-web-app-capable" content="yes"><title>Compactor Simulator v2</title><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css"></head><body>
+<div class="app">
+<header class="topbar"><div><div class="eyebrow">SUND BIRSTA · TRAINING SIM v2</div><h1>Compactor Simulator</h1></div><button id="soundBtn" class="icon-btn">🔊</button></header>
+<section class="hud"><div class="card stat"><span>Счёт</span><strong id="score">0</strong></div><div class="card stat"><span>Серия</span><strong id="streak">0</strong></div><div class="card stat"><span>Бунты</span><strong id="coils">0</strong></div><div class="card stat"><span>Аварии</span><strong id="faults">0</strong></div></section>
+<nav class="tabs"><button id="operatorTab" class="active">Оператор</button><button id="mechanicTab">Механик</button><button id="hmiTab">HMI</button></nav>
+<main>
+<section id="operatorView">
+<section class="machine card"><div class="machine-title"><span>КОМПАКТОР</span><span id="machineState" class="state-ok">ГОТОВ</span></div><div class="scene">
+<div class="press left" id="pressLeft"><small>PRESS PLATE 1</small></div><div class="coil-wrap"><div class="coil" id="coil"><div class="coil-hole"></div><div class="strap strap1" id="strap1"></div><div class="strap strap2" id="strap2"></div><div class="strap strap3" id="strap3"></div><div class="strap strap4" id="strap4"></div><div id="jamWire" class="jam-wire"></div></div></div><div class="press right" id="pressRight"><small>PRESS PLATE 2</small></div>
+<div class="head-panel"><div class="head-label">Вязальные головы</div><div class="heads"><button class="head" data-head="1">1</button><button class="head" data-head="2">2</button><button class="head" data-head="3">3</button><button class="head" data-head="4">4</button></div></div></div>
+<div class="sensors" id="sensorStrip"></div></section>
+<section class="controls card"><h2>Панель оператора</h2><div class="control-grid"><div class="control-block"><label>Сила натяжения</label><div class="segmented"><button id="lowBtn" class="active">LOW</button><button id="highBtn">HIGH</button></div></div><div class="control-block"><label>Подпрессовка</label><div class="segmented"><button id="singleBtn" class="active">1×</button><button id="doubleBtn">2×</button></div></div></div><div class="action-grid"><button id="startBtn" class="primary">▶ Запустить цикл</button><button id="toMechanicBtn" class="secondary">🔧 Механик</button><button id="resetBtn" class="danger">↻ Сброс</button></div></section>
+<section class="card cycle-card"><h2>Последовательность цикла</h2><div id="cycleSteps" class="cycle-steps"></div></section>
+</section>
+<section id="mechanicView" class="hidden"><section class="card mechanic-card"><div class="log-head"><h2>Режим механика</h2><span id="faultCode" class="badge">НЕТ АВАРИИ</span></div><p id="mechanicPrompt" class="mechanic-prompt">Запусти цикл. При аварии здесь появятся симптомы, но причина не будет показана.</p><div class="inspection-grid" id="inspectionGrid"></div><div id="repairPanel" class="repair-panel hidden"><h3>Выбери действие</h3><div id="repairActions" class="repair-actions"></div></div><button id="returnBtn" class="secondary full">← Вернуться к оператору</button></section></section>
+<section id="hmiView" class="hidden"><section class="card hmi"><div class="hmi-header">SUND BIRSTA · HMI</div><div class="hmi-grid"><div><span>STATE</span><strong id="hmiState">READY</strong></div><div><span>TENSION</span><strong id="hmiTension">LOW</strong></div><div><span>PRE-PRESS</span><strong id="hmiPrepress">1×</strong></div><div><span>ALARM</span><strong id="hmiAlarm">—</strong></div></div><h3>I/O STATUS</h3><div id="ioPanel" class="io-panel"></div><h3>HEAD STATUS</h3><div id="headStatus" class="io-panel"></div></section></section>
+<section class="card log-card"><div class="log-head"><h2>Журнал</h2><span id="qualityBadge" class="badge">—</span></div><div id="log" class="log"><div class="log-entry info">Система готова. Версия 2 загружена.</div></div></section>
+</main></div><script src="app.js"></script></body></html>
