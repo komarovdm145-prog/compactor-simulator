@@ -1,7 +1,8 @@
-// TEST MODE v2 — strict step-by-step progression lock
+// TEST MODE v3 — strict step-by-step progression lock without MutationObserver loops
 (function(){
   const KEY='compactorTrainingTestV1';
   const CHAPTER_STARTS=[0,4,6];
+  let syncing=false;
 
   function currentIndex(){
     const n=parseInt(document.body.dataset.testSlide||'1',10);
@@ -23,6 +24,17 @@
     return true;
   }
 
+  function setClass(el,name,on){
+    if(!el)return;
+    if(el.classList.contains(name)!==on)el.classList.toggle(name,on);
+  }
+
+  function setAttr(el,name,value){
+    if(!el)return;
+    const v=String(value);
+    if(el.getAttribute(name)!==v)el.setAttribute(name,v);
+  }
+
   function ensureLockHint(){
     const nav=document.querySelector('.nav');
     if(!nav)return null;
@@ -37,33 +49,42 @@
   }
 
   function syncLock(){
-    const idx=currentIndex();
-    const next=document.getElementById('next');
-    const done=isDone(idx);
-    const hint=ensureLockHint();
+    if(syncing)return;
+    syncing=true;
+    try{
+      const idx=currentIndex();
+      const next=document.getElementById('next');
+      const done=isDone(idx);
+      const hint=ensureLockHint();
 
-    if(next){
-      next.disabled=!done;
-      next.classList.toggle('test-locked',!done);
-      next.setAttribute('aria-disabled',String(!done));
-      next.title=done?'Можно перейти дальше':'Сначала выполни правильное действие на этом слайде';
+      if(next){
+        if(next.disabled===done)next.disabled=!done;
+        setClass(next,'test-locked',!done);
+        setAttr(next,'aria-disabled',!done);
+        const title=done?'Можно перейти дальше':'Сначала выполни правильное действие на этом слайде';
+        if(next.title!==title)next.title=title;
+      }
+
+      if(hint){
+        setClass(hint,'open',!done);
+        const html=done
+          ? '<span class="ok">✓ Задание выполнено — можно идти дальше</span>'
+          : '<span class="lock">🔒 Сначала выполни действие в блоке «ТВОЁ ДЕЙСТВИЕ»</span>';
+        if(hint.innerHTML!==html)hint.innerHTML=html;
+      }
+
+      document.querySelectorAll('[data-chapter]').forEach(btn=>{
+        const k=+btn.dataset.chapter;
+        const target=CHAPTER_STARTS[k]??0;
+        const locked=target>idx&&!canReach(target);
+        setClass(btn,'test-chapter-locked',locked);
+        setAttr(btn,'aria-disabled',locked);
+        const title=locked?'Сначала пройди предыдущие задания':'';
+        if(btn.title!==title)btn.title=title;
+      });
+    }finally{
+      syncing=false;
     }
-
-    if(hint){
-      hint.classList.toggle('open',!done);
-      hint.innerHTML=done
-        ? '<span class="ok">✓ Задание выполнено — можно идти дальше</span>'
-        : '<span class="lock">🔒 Сначала выполни действие в блоке «ТВОЁ ДЕЙСТВИЕ»</span>';
-    }
-
-    document.querySelectorAll('[data-chapter]').forEach(btn=>{
-      const k=+btn.dataset.chapter;
-      const target=CHAPTER_STARTS[k]??0;
-      const locked=target>idx&&!canReach(target);
-      btn.classList.toggle('test-chapter-locked',locked);
-      btn.setAttribute('aria-disabled',String(locked));
-      btn.title=locked?'Сначала пройди предыдущие задания':'';
-    });
   }
 
   function showBlockedMessage(text){
@@ -78,12 +99,11 @@
     if(task){
       task.classList.add('test-attention');
       setTimeout(()=>task.classList.remove('test-attention'),600);
-      task.scrollIntoView({behavior:'smooth',block:'nearest'});
+      try{task.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}
     }
     if(navigator.vibrate)navigator.vibrate([20,35,20]);
   }
 
-  // Block NEXT before the stable training handler can change slides.
   document.getElementById('next')?.addEventListener('click',e=>{
     const idx=currentIndex();
     if(!isDone(idx)){
@@ -93,7 +113,6 @@
     }
   },true);
 
-  // Chapter tabs cannot be used to skip unfinished slides.
   document.addEventListener('click',e=>{
     const btn=e.target.closest?.('[data-chapter]');
     if(!btn)return;
@@ -106,19 +125,20 @@
     }
   },true);
 
-  // Every render must immediately restore the correct lock state.
   if(typeof render==='function'){
     const previousRender=render;
     render=function(){
       previousRender();
-      setTimeout(syncLock,0);
+      requestAnimationFrame(syncLock);
     };
   }
 
-  // markDone() changes the task class and localStorage; observe both visual rerenders
-  // and completion changes so NEXT opens immediately after the correct action.
-  const observer=new MutationObserver(()=>syncLock());
-  observer.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class','data-test-slide']});
+  // Polling is intentionally lightweight and avoids the self-triggering DOM mutation loop
+  // that caused iPhone browsers to stay on a black loading screen.
+  const timer=setInterval(syncLock,180);
+  window.addEventListener('pagehide',()=>clearInterval(timer),{once:true});
+  window.addEventListener('pageshow',syncLock);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncLock()});
 
   const style=document.createElement('style');
   style.textContent=`
