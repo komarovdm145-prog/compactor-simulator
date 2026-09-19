@@ -10,7 +10,7 @@ function restoreMenuLinks(d){
     b.style.borderColor='#8b6a2f';
     b.style.background='linear-gradient(145deg,#322817,#1b1a16)';
     b.style.color='#ffe4a3';
-    b.onclick=()=>{window.location.href='./test.html?v=8';};
+    b.onclick=()=>{window.location.href='./test.html?v=9';};
     if(training)training.after(b);else menu.appendChild(b);
   }
   const home=d.getElementById('homeBtn');
