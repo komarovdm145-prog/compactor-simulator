@@ -13,6 +13,6 @@ $('#aboutBtn').onclick=()=>$('#aboutModal').classList.remove('hidden');
 $$('[data-close]').forEach(b=>b.onclick=()=>b.closest('.modal').classList.add('hidden'));
 $('#startBtn').onclick=()=>location.href='./game.html#start';
 $('#trainingBtn').onclick=()=>location.href='./training.html';
-$('#trainingTestBtn').onclick=()=>location.href='./training-test.html';
+$('#trainingTestBtn').onclick=()=>location.href='./training-test-v2.html';
 $('#examBtn').onclick=()=>location.href='./game.html#exam';
 sync();
