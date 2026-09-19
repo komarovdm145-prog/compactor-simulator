@@ -1,0 +1,30 @@
+/* v8.6.5 — interactive training slides 6–8 */
+.ties-demo,.fault-demo,.operator-demo{background:radial-gradient(circle at 50% 45%,#243a4a 0,#152735 48%,#09131b 78%)}
+.ties-demo .knb-machine,.fault-demo .knb-machine{bottom:72px;transform:scale(.86);transform-origin:50% 48%}
+.training-panel{position:absolute;left:12px;right:12px;bottom:54px;z-index:25;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid #35526b;border-radius:12px;background:#07111ee8;box-shadow:0 8px 24px #0008;color:#cfe3f2;font-size:10px}
+.training-panel strong{color:#fff;font-size:11px}.training-panel b{color:#73dcff}.training-panel .ok{color:#74efa9}.training-panel .warn{color:#ffc66f}
+.pass-badges{display:flex;gap:5px}.pass-badges i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;background:#142536;border:1px solid #34516a;color:#748ca0;transition:.25s}.pass-badges i.on{background:#123d2b;border-color:#42c984;color:#a9ffd0;box-shadow:0 0 12px #2ed67d33}
+.ties-demo .actions,.fault-demo .actions,.operator-demo .actions{bottom:10px}
+.ties-demo .actions button{min-width:112px}.ties-demo .actions button.selected{background:#087fac;border-color:#45d6ff}
+.ties-demo.running .actions button{opacity:.55}
+
+.hmi-mini{position:absolute;right:12px;top:12px;width:142px;z-index:24;border:2px solid #51636e;border-radius:8px;background:#c4c8b9;color:#17201d;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;box-shadow:0 7px 20px #0009;overflow:hidden}
+.hmi-mini .hmi-title{padding:5px 7px;background:#34566c;color:#eaf8ff;font-size:8px;font-weight:900;letter-spacing:.08em}
+.hmi-mini .hmi-row{display:flex;justify-content:space-between;gap:5px;padding:4px 6px;border-top:1px solid #939b8f;font-size:8px}.hmi-mini .on{color:#006a31;font-weight:900}.hmi-mini .off{color:#a11c1c;font-weight:900}.hmi-mini .hold{color:#8c5b00;font-weight:900}
+.fault-demo .fault-label{position:absolute;left:12px;top:12px;z-index:24;max-width:148px;padding:7px 9px;border-radius:10px;background:#241719d9;border:1px solid #7a3e43;color:#ffc6c6;font-size:9px;line-height:1.35}
+.fault-demo.fault3 .knb-arm[data-head="3"] .knb-head{border-color:#ff6e6e;box-shadow:0 0 0 2px #8d313155,0 0 20px #ff575766,0 7px 14px #000a}
+.fault-demo.fault3 .knb-arm[data-head="3"] .wire-ray{background:#ffc45e;box-shadow:0 0 12px #ffb12f}
+.fault-demo.fault3 .knb-arm[data-head="3"] .head-ok{opacity:1;background:#532020;border-color:#e26767;color:#ffd2d2}
+.fault-demo.fault3 .knb-arm[data-head="3"] .head-ok:after{content:"!"}.fault-demo.fault3 .knb-arm[data-head="3"] .head-ok{font-size:0}.fault-demo.fault3 .knb-arm[data-head="3"] .head-ok:after{font-size:12px;font-weight:900}
+.fault-stop{position:absolute;left:50%;bottom:54px;transform:translateX(-50%);z-index:27;width:max-content;max-width:82%;padding:7px 10px;border-radius:999px;border:1px solid #8d4444;background:#37191be8;color:#ffd0d0;font-size:9px;font-weight:900;opacity:0;transition:.25s}.fault-demo.fault3 .fault-stop{opacity:1}
+
+.operator-demo{padding:12px}.operator-screen{position:absolute;left:12px;right:12px;top:12px;bottom:84px;border:2px solid #536775;border-radius:12px;background:linear-gradient(#bfc5b7,#9ba493);color:#14201c;box-shadow:inset 0 0 20px #49524655,0 10px 25px #0008;overflow:hidden;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.operator-screen .op-head{display:flex;justify-content:space-between;align-items:center;padding:7px 9px;background:#31576e;color:white;font-size:9px;font-weight:900}.operator-screen .op-alarm{margin:10px;padding:9px;border:2px solid #a73535;background:#d9b1a8;color:#611616;font-size:10px;font-weight:900;line-height:1.35}.operator-screen .op-data{margin:0 10px;display:grid;grid-template-columns:1fr 1fr;gap:6px}.operator-screen .op-data div{padding:7px;border:1px solid #737d70;background:#d6d9cb;font-size:8px}.operator-screen .op-data b{display:block;margin-top:3px;font-size:10px}.operator-screen .op-data .good b{color:#006a31}.operator-screen .op-data .bad b{color:#a11c1c}.operator-screen .op-tip{margin:9px 10px;padding:7px;border-radius:7px;background:#263c49;color:#effaff;font-size:8px;line-height:1.4}.operator-demo .actions{gap:5px}.operator-demo .actions button{padding:9px 10px;font-size:9px}.operator-demo .actions button:disabled{opacity:.35;filter:grayscale(.5)}.operator-demo .actions .call-mech{background:#5c2424;border-color:#9c4b4b}
+.op-step-dots{position:absolute;left:50%;bottom:58px;transform:translateX(-50%);z-index:26;display:flex;gap:5px}.op-step-dots i{width:7px;height:7px;border-radius:50%;background:#385167}.op-step-dots i.on{background:#4ad1ff;box-shadow:0 0 8px #35c7ff}
+
+@media(max-width:520px){
+ .ties-demo .knb-machine,.fault-demo .knb-machine{transform:scale(.78);top:-7px}
+ .training-panel{bottom:49px;font-size:8px;padding:6px 7px}.training-panel strong{font-size:9px}.pass-badges i{width:20px;height:20px;font-size:8px}
+ .hmi-mini{width:121px;right:7px;top:7px}.hmi-mini .hmi-title{font-size:7px}.hmi-mini .hmi-row{font-size:7px;padding:3px 5px}
+ .fault-demo .fault-label{left:7px;top:7px;font-size:7px;max-width:118px}.fault-stop{bottom:49px;font-size:8px}
+ .operator-screen{left:7px;right:7px;top:7px;bottom:76px}.operator-screen .op-head{font-size:8px}.operator-screen .op-alarm{font-size:8px;margin:8px;padding:7px}.operator-screen .op-data{margin:0 8px;gap:4px}.operator-screen .op-data div{padding:5px;font-size:7px}.operator-screen .op-data b{font-size:8px}.operator-screen .op-tip{margin:7px 8px;font-size:7px;padding:5px}.operator-demo .actions{gap:4px}.operator-demo .actions button{padding:8px 7px;font-size:8px}.op-step-dots{bottom:51px}
+}
