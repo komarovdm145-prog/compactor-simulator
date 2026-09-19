@@ -1,7 +1,7 @@
 const slides=[
 {t:'Что делает компактор?',x:'С линии приходит большой рыхлый бунт катанки. Компактор нужен, чтобы сжать его и закрепить металлической проволокой.',v:'loose'},
 {t:'Бунт заходит в компактор',x:'Бунт оказывается между двумя пресс-плитами. Машина выставляет его в рабочее положение.',v:'arrive'},
-{t:'Плиты сжимают бунт',x:'Левая и правая плиты сходятся навстречу друг другу. Бунт становится короче и плотнее.',v:'press'},
+{t:'Компактор прессует бунт',x:'Две пресс-плиты сходятся слева и справа. Бунт сжимается и становится короче и плотнее.',v:'press'},
 {t:'Четыре головы делают вязки',x:'Каждая голова подаёт проволоку вокруг бунта, натягивает её, делает скрутку и отрезает. После этого бунт держит форму.',v:'bound'},
 {t:'Попробуй полный цикл',x:'Нажми «Запустить». Сначала плиты сожмут бунт, затем четыре головы выполнят обвязку.',v:'cycle'},
 {t:'Одинарная и двойная вязка',x:'Одинарная — один проход четырёх голов: 4 вязки. Двойная — два прохода по 4: всего 8 вязок.',v:'ties'},
@@ -14,10 +14,11 @@ let i=0,opStep=0,mechStep=0;
 const $=s=>document.querySelector(s);
 function bands(n){return Array.from({length:n},(_,k)=>`<i class="band on" style="top:${n===4?22+k*18:12+k*10}%"></i>`).join('')}
 function base(extra='',content=''){return `<div class="stage ${extra}" id="stage"><div class="grid"></div><div class="floor"></div><div class="press left"></div><div class="press right"></div><div class="coil ${extra==='loose'?'loose':''}" id="coil">${content}</div></div>`}
+function pressGraphic(){return `<div class="stage press-demo" id="stage"><div class="grid"></div><div class="floor"></div><div class="press demo left"><span>PRESS<br>PLATE 1</span></div><div class="press demo right"><span>PRESS<br>PLATE 2</span></div><div class="press-arrows"><i>→</i><b>СЖАТИЕ</b><i>←</i></div><div class="coil demo" id="coil"></div><div class="press-caption" id="pressCaption">Бунт до сжатия</div><div class="actions"><button id="pressDemoBtn" class="primary">▶ ПОКАЗАТЬ СЖАТИЕ</button></div></div>`}
 function graphic(v){
  if(v==='loose')return base('loose')+'<div class="note">Большой рыхлый бунт</div>';
  if(v==='arrive')return base('')+'<div class="arrow">↓ БУНТ В РАБОЧЕЙ ЗОНЕ</div>';
- if(v==='press')return base('compressed')+'<div class="note">Плиты сжали бунт</div>';
+ if(v==='press')return pressGraphic();
  if(v==='bound')return base('compressed',bands(4))+'<div class="heads"><b>1</b><b>2</b><b>3</b><b>4</b></div><div class="note">Сжат и обвязан</div>';
  if(v==='cycle')return base('',bands(4))+'<div class="status" id="status">Готов к запуску</div><div class="actions"><button id="runCycle" class="primary">▶ ЗАПУСТИТЬ</button></div>';
  if(v==='ties')return base('compressed',bands(8))+'<div class="note" id="tieInfo">Двойная: 4 + 4 = 8 вязок</div><div class="actions"><button id="four">4 ВЯЗКИ</button><button id="eight" class="primary">8 ВЯЗОК</button></div>';
@@ -28,6 +29,12 @@ function graphic(v){
 }
 function render(){const s=slides[i];$('#title').textContent=s.t;$('#text').textContent=s.x;$('#count').textContent=`${i+1} / ${slides.length}`;$('#bar').style.width=`${(i+1)/slides.length*100}%`;$('#visual').innerHTML=graphic(s.v);$('#prev').disabled=i===0;$('#next').textContent=i===slides.length-1?'Начать игру →':'Далее →';bind(s.v)}
 function bind(v){
+ if(v==='press'){
+   const st=$('#stage'),btn=$('#pressDemoBtn'),cap=$('#pressCaption');
+   const demo=async()=>{if(!st||!document.body.contains(st))return;btn.disabled=true;st.classList.remove('squeezed');cap.textContent='Бунт до сжатия';btn.textContent='ПЛИТЫ СХОДЯТСЯ…';await wait(180);st.classList.add('squeezed');cap.textContent='Бунт стал короче и плотнее';await wait(850);btn.disabled=false;btn.textContent='↻ ПОВТОРИТЬ'};
+   btn.onclick=demo;
+   setTimeout(()=>{if(document.body.contains(st))demo()},350);
+ }
  if(v==='cycle'){$('#runCycle').onclick=async()=>{const st=$('#stage'),tx=$('#status'),b=$('#runCycle');b.disabled=true;tx.textContent='Бунт в рабочей зоне';await wait(450);tx.textContent='Сжатие';st.classList.add('compressed');await wait(900);tx.textContent='Обвязка четырьмя головами';[...st.querySelectorAll('.band')].forEach((x,k)=>setTimeout(()=>x.style.opacity='1',k*160));await wait(1000);tx.textContent='Готовый бунт';b.disabled=false}}
  if(v==='ties'){const draw=n=>{$('#coil').innerHTML=bands(n);$('#tieInfo').textContent=n===4?'Одинарная: 1 × 4 = 4 вязки':'Двойная: 2 × 4 = 8 вязок';$('#four').classList.toggle('primary',n===4);$('#eight').classList.toggle('primary',n===8)};$('#four').onclick=()=>draw(4);$('#eight').onclick=()=>draw(8)}
  if(v==='fault'){$('#faultBtn').onclick=()=>{$('#alarmBox').innerHTML='<div class="alarm">⚠ НЕИСПРАВНОСТЬ · ЦИКЛ ОСТАНОВЛЕН</div>';$('#faultBtn').textContent='ОШИБКА ПОЯВИЛАСЬ'}}
