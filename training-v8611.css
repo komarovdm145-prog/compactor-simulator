@@ -1,0 +1,29 @@
+/* v8.6.11 — PP1 heads are part of the machine, not a floating hint */
+.cycle-demo .pp1-side-plate{position:absolute;inset:0;border-radius:7px;background:linear-gradient(90deg,#163249,#4f7184,#172f40);border:2px solid #66869a;box-shadow:0 10px 22px #0008;overflow:visible}
+.cycle-demo .pp1-side-title{position:absolute;left:50%;top:8px;transform:translateX(-50%);font-size:7px;font-weight:900;letter-spacing:.08em;color:#c9edff;white-space:nowrap}
+.cycle-demo .pp1-head-pack{position:absolute;left:9px;right:9px;top:34px;height:76px;border-radius:9px;background:linear-gradient(180deg,#0c2232,#142e41);border:1px solid #49728b;box-shadow:inset 0 0 12px #06131c;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:5px;padding:6px}
+.cycle-demo .pp1-head-pack i{position:relative;display:grid;place-items:center;border-radius:5px;background:linear-gradient(#446376,#172b38);border:1px solid #6f91a3;color:#e5f6ff;font-size:6px;font-style:normal;font-weight:900;box-shadow:0 3px 6px #0008}
+.cycle-demo .pp1-head-pack i:after{content:"";position:absolute;right:-20px;top:50%;width:20px;height:3px;transform:translateY(-50%);background:linear-gradient(90deg,#6f8794,#1b2a33);border-radius:2px;opacity:.85}
+.cycle-demo .pp1-side-note{position:absolute;left:116px;top:79px;width:132px;padding:7px 8px;border-radius:10px;background:#071725e8;border:1px solid #3b718f;color:#d8edf7;font-size:7px;line-height:1.35;z-index:12;box-shadow:0 6px 16px #0008}
+.cycle-demo .pp1-side-note b{display:block;color:#7fe0ff;margin-bottom:3px;font-size:8px}
+.cycle-demo .pp1-side-note:before{content:"←";position:absolute;left:-15px;top:17px;color:#7fe0ff;font-size:16px;font-weight:900}
+.cycle-demo .cycle-front .front-view-label{position:absolute;left:50%;top:25px;transform:translateX(-50%);z-index:22;padding:6px 10px;border-radius:999px;background:#071725e8;border:1px solid #3d7898;color:#ccefff;font-size:7px;font-weight:900;letter-spacing:.07em;white-space:nowrap}
+.cycle-demo .cycle-front .front-view-label b{color:#7fe0ff}
+.cycle-demo .cycle-front .knb-machine{top:24px;bottom:52px}
+.cycle-demo .cycle-front .pp1-label{top:8px}
+.cycle-demo .cycle-caption{max-width:72%;}
+.cycle-demo .cycle-side .cycle-press.left{overflow:visible;background:none;border:0;box-shadow:none}
+/* compact inline context for later slides */
+.inline-pp1{position:absolute;right:8px;top:8px;z-index:30;padding:5px 8px;border-radius:8px;background:#071725df;border:1px solid #345d76;color:#bdd8e8;font-size:6px;line-height:1.25;pointer-events:none}.inline-pp1 b{color:#7fe0ff}.inline-pp1 span{color:#8eaaba}
+.io-demo .inline-pp1,.alarms-demo .inline-pp1,.operator-demo .inline-pp1{top:auto;bottom:8px;right:8px}
+@media(max-width:520px){
+ .cycle-demo .pp1-side-title{font-size:6px}
+ .cycle-demo .pp1-head-pack{left:7px;right:7px;top:31px;height:70px;gap:4px;padding:5px}
+ .cycle-demo .pp1-head-pack i{font-size:5px}
+ .cycle-demo .pp1-head-pack i:after{right:-14px;width:14px}
+ .cycle-demo .pp1-side-note{left:105px;top:72px;width:116px;font-size:6px;padding:6px}
+ .cycle-demo .pp1-side-note b{font-size:7px}
+ .cycle-demo .cycle-front .front-view-label{font-size:6px;top:23px}
+ .cycle-demo .cycle-caption{max-width:78%}
+ .inline-pp1{font-size:5px;padding:4px 6px}
+}
