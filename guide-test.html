@@ -1,1 +1,76 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#07111e"><title>PP2 Guide TEST · Compactor Trainer</title><style>html,body{margin:0;width:100%;height:100%;background:#07111e;overflow:hidden}#gameFrame{width:100%;height:100dvh;border:0;display:block;background:#07111e}</style></head><body><iframe id="gameFrame" src="./v8.html?v=guide-test-1" title="PP2 Guide TEST"></iframe><script src="./guide-test-host.js?v=1"></script></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#07111e">
+<title>PP2 GUIDE TEST v2</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;background:#07111e;color:#eef7ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{padding:env(safe-area-inset-top) 12px env(safe-area-inset-bottom)}
+.wrap{max-width:860px;margin:auto;padding:12px 0 24px}.top{display:flex;align-items:center;gap:10px;margin-bottom:10px}.back{width:42px;height:42px;border:1px solid #38536a;border-radius:11px;background:#122337;color:#fff;font-size:18px}.top h1{font-size:17px;margin:0}.top small{display:block;color:#83a0b5;font-size:8px;margin-top:3px}.tag{margin-left:auto;padding:6px 8px;border-radius:999px;border:1px solid #836622;background:#382b0d;color:#ffe28b;font-size:7px;font-weight:900;white-space:nowrap}
+.card{background:#0d1927;border:1px solid #2e485f;border-radius:16px;padding:11px;margin-bottom:10px}.scene{height:430px;position:relative;overflow:hidden;border-radius:13px;border:1px solid #31485b;background:linear-gradient(#283741 0 62%,#111920 63%)}
+.floor{position:absolute;left:0;right:0;bottom:38px;height:6px;background:#2e3d47;box-shadow:0 16px 0 #26353f}.beam{position:absolute;left:7%;right:7%;top:32px;height:23px;background:#a67b17;border:2px solid #cf9c22}.beam:before{content:"";position:absolute;left:-4%;right:-4%;top:-26px;height:18px;background:#24455c}
+.coil{position:absolute;left:42%;top:125px;transform:translateX(-50%);width:235px;height:165px;border-radius:22px 42px 42px 22px;background:repeating-linear-gradient(89deg,#646b6e 0 4px,#262b2e 5px 10px,#72797b 11px 15px,#1f2528 16px 21px);box-shadow:inset 0 0 24px #000b,0 16px 24px #0008}.coil:after{content:"БУНТ";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#cdd5d9;font-size:10px;font-weight:900;letter-spacing:.15em;text-shadow:0 2px 3px #000}
+.pp2{position:absolute;right:24px;top:84px;width:120px;height:265px;background:linear-gradient(90deg,#203544,#506a7a,#1b2f3d);border:2px solid #6a8190;box-shadow:0 12px 28px #0008}.pp2 .brand{margin:13px 12px 0;padding:6px;background:#c3c5be;color:#31424a;text-align:center;font-size:8px;font-weight:900}.pp2 .face{position:absolute;left:-34px;top:55px;width:34px;height:165px;background:#212a2f;border:2px solid #59676f}.pp2 .name{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-size:8px;font-weight:900;color:#c7d5dd}
+.guide-base{position:absolute;right:144px;top:116px;width:84px;height:205px;z-index:12;pointer-events:none}.guide-rail{position:absolute;right:-19px;top:89px;width:52px;height:18px;border-radius:5px;background:linear-gradient(#6d8592,#273b48);border:1px solid #91a4ad;box-shadow:0 4px 9px #0009}.carriage{position:absolute;right:0;top:0;width:72px;height:205px;border:8px solid #2f4655;border-right-width:12px;border-radius:11px 4px 4px 11px;background:linear-gradient(90deg,#142631cc,#304b5bcc);box-shadow:inset 0 0 0 2px #718b98,0 10px 20px #0009;transform:translateX(0);transition:transform .75s ease,border-color .2s,box-shadow .2s}
+.carriage:before,.carriage:after{content:"";position:absolute;left:10px;right:10px;height:10px;border-radius:5px;background:linear-gradient(#8298a2,#2a3d48);border:1px solid #94a7ae}.carriage:before{top:37px}.carriage:after{bottom:37px}
+.finger{position:absolute;left:-66px;width:72px;height:12px;border-radius:7px 2px 2px 7px;background:linear-gradient(#7b929c,#2d414d);border:1px solid #9caeb5;box-shadow:0 4px 9px #0008}.f1{top:18px}.f2{top:70px}.f3{top:122px}.f4{top:174px}.finger:after{content:"";position:absolute;left:-11px;top:2px;width:12px;height:6px;border-radius:5px 0 0 5px;background:#b6c3c8}
+.guide-base.half .carriage{transform:translateX(-54px)}.guide-base.work .carriage{transform:translateX(-108px);border-color:#42876d;box-shadow:inset 0 0 0 2px #8ee0bd,0 0 20px #4dce9655}.guide-base.moving .carriage{border-color:#b88c2e;box-shadow:inset 0 0 0 2px #ffdb79,0 0 20px #e6b23c55}
+.stateflag{position:absolute;right:18px;top:11px;z-index:20;padding:7px 9px;border-radius:9px;background:#06111bea;border:1px solid #3b6076;color:#acdff7;font-size:7px;font-weight:900;line-height:1.45;text-align:right}.stateflag b{font-size:9px;color:white}
+.legend{position:absolute;left:10px;bottom:10px;padding:8px 9px;border-radius:9px;background:#06111bea;border:1px solid #334d60;font-size:7px;color:#97adbc;line-height:1.5}.legend b{color:#dcebf3}
+.controls h2{font-size:13px;margin:0 0 8px}.buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.buttons button{min-height:47px;border-radius:10px;border:1px solid #38586f;background:#162a3d;color:#e8f6ff;font-size:9px;font-weight:900}.buttons button.primary{background:#126486;border-color:#59c7ec}.buttons button:disabled{opacity:.45}.read{margin-top:9px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.sig{padding:8px;border-radius:9px;border:1px solid #2e4659;background:#07131d;text-align:center}.sig span{display:block;font-size:7px;color:#7890a2}.sig b{display:block;margin-top:4px;font-size:10px;color:#9daab2}.sig.on b{color:#82e5af;text-shadow:0 0 8px #58c98c55}.sig.move b{color:#ffd878}.progress{margin-top:9px;height:8px;border-radius:999px;background:#07121c;border:1px solid #2c4457;overflow:hidden}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2994c1,#79d8ff);transition:width .75s ease}.note{font-size:9px;line-height:1.5;color:#9ab0bf;margin:0}.note b{color:#dfeef6}
+@media(max-width:620px){.scene{height:365px}.coil{left:38%;top:118px;width:184px;height:138px}.pp2{right:10px;top:79px;width:92px;height:230px}.pp2 .face{left:-27px;width:27px;height:145px}.guide-base{right:101px;top:104px;transform:scale(.78);transform-origin:top right}.stateflag{top:8px;right:8px}.buttons{grid-template-columns:1fr 1fr}.read{grid-template-columns:1fr 1fr}.tag{font-size:6px}.legend{font-size:6px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><button class="back" onclick="location.href='./?v=8.6.16'">←</button><div><h1>PP2 · GUIDE TEST v2</h1><small>Отдельный стенд. Основную игру не изменяет.</small></div><div class="tag">ISOLATED TEST</div></div>
+  <section class="card">
+    <div class="scene">
+      <div class="beam"></div><div class="floor"></div>
+      <div class="coil"></div>
+      <div class="pp2"><div class="brand">SUND/BIRSTA</div><div class="face"></div><div class="name">PRESS PLATE 2</div></div>
+      <div id="guide" class="guide-base home">
+        <div class="guide-rail"></div>
+        <div class="carriage"><i class="finger f1"></i><i class="finger f2"></i><i class="finger f3"></i><i class="finger f4"></i></div>
+      </div>
+      <div class="stateflag">PP2 GUIDE<br><b id="stateName">HOME</b><br><span id="pct">0%</span></div>
+      <div class="legend"><b>Что проверяем:</b><br>геометрия · положение на PP2 · ход к бунту · возврат</div>
+    </div>
+  </section>
+  <section class="card controls">
+    <h2>Ручная проверка направляющей</h2>
+    <div class="buttons"><button data-pos="0">← HOME</button><button data-pos="50">50%</button><button data-pos="100">WORK →</button><button id="auto" class="primary">▶ АВТО-ДЕМО</button></div>
+    <div class="read"><div id="b64" class="sig on"><span>B64</span><b>HOME ON</b></div><div id="y68" class="sig"><span>Y68</span><b>OFF</b></div><div id="b69" class="sig"><span>B69</span><b>—</b></div><div id="b49" class="sig"><span>B49</span><b>OPEN</b></div></div>
+    <div class="progress"><i id="bar"></i></div>
+  </section>
+  <section class="card"><p class="note"><b>Важно:</b> это пока не попытка угадать точную конструкцию SUND BIRSTA. Здесь мы изолированно подбираем форму и направление движения по твоей реальной машине. Если геометрия неверная — меняем только этот стенд.</p></section>
+</div>
+<script>
+(()=>{
+  const g=document.getElementById('guide'),name=document.getElementById('stateName'),pct=document.getElementById('pct'),bar=document.getElementById('bar');
+  const b64=document.getElementById('b64'),y68=document.getElementById('y68'),b69=document.getElementById('b69'),b49=document.getElementById('b49'),auto=document.getElementById('auto');
+  let pos=0,moving=false;
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  function setSig(el,on,text,move=false){el.classList.toggle('on',on&&!move);el.classList.toggle('move',move);el.querySelector('b').textContent=text}
+  function paint(){
+    g.classList.toggle('home',pos===0&&!moving);g.classList.toggle('half',pos===50&&!moving);g.classList.toggle('work',pos===100&&!moving);g.classList.toggle('moving',moving);
+    name.textContent=moving?'MOVING':pos===0?'HOME':pos===50?'MID POSITION':'WORK / CLOSED';pct.textContent=pos+'%';bar.style.width=pos+'%';
+    setSig(b64,pos===0&&!moving,pos===0&&!moving?'HOME ON':'OFF');
+    setSig(y68,moving,moving?'MOVE ON':'OFF',moving);
+    setSig(b69,!moving&&pos>0,!moving&&pos>0?'POSITION OK':'—');
+    setSig(b49,!moving&&pos===100,!moving&&pos===100?'CLOSED':'OPEN');
+  }
+  async function move(target){
+    if(moving)return;target=+target;if(target===pos)return;
+    moving=true;paint();await wait(120);
+    g.classList.remove('home','half','work');g.classList.add(target===0?'home':target===50?'half':'work');bar.style.width=target+'%';pct.textContent=target+'%';
+    await wait(780);pos=target;moving=false;paint();
+  }
+  document.querySelectorAll('[data-pos]').forEach(b=>b.onclick=()=>move(b.dataset.pos));
+  auto.onclick=async()=>{if(moving)return;auto.disabled=true;await move(50);await wait(350);await move(100);await wait(700);await move(50);await wait(300);await move(0);auto.disabled=false};
+  paint();
+})();
+</script>
+</body>
+</html>
