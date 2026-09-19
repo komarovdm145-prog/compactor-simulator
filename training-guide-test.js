@@ -5,8 +5,6 @@
   const MIGRATION_KEY='compactorGuideLessonV1';
   let guideReady=false;
 
-  // The PP2 guide is a new required lesson. Unlock old saved progress only once at slide 5
-  // so a user who completed TEST before this addition must actually perform the new action.
   try{
     if(!localStorage.getItem(MIGRATION_KEY)){
       const s=JSON.parse(localStorage.getItem(TEST_KEY)||'{}')||{};
@@ -20,7 +18,27 @@
     try{const s=JSON.parse(localStorage.getItem(TEST_KEY)||'{}');return !!(s.done&&s.done[4])}catch(e){return false}
   }
 
+  function decorateFlow(){
+    if(typeof i==='undefined'||i>5)return;
+    const flow=document.querySelector('.test-flow:not(.diag)');if(!flow)return;
+    let gs=flow.querySelector('.flow-guide-pp2');
+    if(!gs){
+      const press=[...flow.querySelectorAll('span')].find(x=>x.textContent.includes('ПРЕСС'));
+      if(press){
+        const arrow=document.createElement('b');arrow.textContent='→';
+        gs=document.createElement('span');gs.className='flow-guide-pp2';gs.innerHTML='<i>G</i>PP2 GUIDE';
+        press.after(arrow,gs);
+      }
+    }
+    if(gs){
+      gs.classList.remove('active','done');
+      if(i===4){flow.querySelectorAll('span').forEach(x=>x.classList.remove('active'));gs.classList.add('active')}
+      else if(i>4)gs.classList.add('done');
+    }
+  }
+
   function decorate(){
+    decorateFlow();
     if(typeof i==='undefined'||i!==4)return;
     const stage=document.getElementById('stage'),task=document.getElementById('testTask');
     if(!stage||!task)return;
