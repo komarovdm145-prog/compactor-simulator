@@ -1,10 +1,23 @@
 // TEST training — add PP2 moving guide to the full-cycle lesson without changing stable training
 (function(){
   if(typeof render!=='function')return;
+  const TEST_KEY='compactorTrainingTestV1';
+  const MIGRATION_KEY='compactorGuideLessonV1';
   let guideReady=false;
 
+  // The PP2 guide is a new required lesson. Unlock old saved progress only once at slide 5
+  // so a user who completed TEST before this addition must actually perform the new action.
+  try{
+    if(!localStorage.getItem(MIGRATION_KEY)){
+      const s=JSON.parse(localStorage.getItem(TEST_KEY)||'{}')||{};
+      if(s.done)delete s.done[4];
+      localStorage.setItem(TEST_KEY,JSON.stringify(s));
+      localStorage.setItem(MIGRATION_KEY,'migrated');
+    }
+  }catch(e){}
+
   function persistedDone(){
-    try{const s=JSON.parse(localStorage.getItem('compactorTrainingTestV1')||'{}');return !!(s.done&&s.done[4])}catch(e){return false}
+    try{const s=JSON.parse(localStorage.getItem(TEST_KEY)||'{}');return !!(s.done&&s.done[4])}catch(e){return false}
   }
 
   function decorate(){
@@ -28,7 +41,7 @@
     if(front&&guideReady)front.disabled=false;
     const move=document.getElementById('testGuideMove');
     const demo=document.getElementById('testGuidePP2');
-    if(guideReady&&move){move.classList.add('done');move.textContent='✓ НАПРАВЛЯЮЩА CLOSED';demo?.classList.add('closed');document.querySelector('.tg-state')&&(document.querySelector('.tg-state').textContent='B49 · CLOSED');['gs64','gs68','gs69','gs49'].forEach((id,k)=>document.getElementById(id)?.classList.toggle('on',k>1));}
+    if(guideReady&&move){move.classList.add('done');move.textContent='✓ НАПРАВЛЯЮЩА CLOSED';demo?.classList.add('closed');const st=demo?.querySelector('.tg-state');if(st)st.textContent='B49 · CLOSED';['gs64','gs68','gs69','gs49'].forEach((id,k)=>document.getElementById(id)?.classList.toggle('on',k>1));}
 
     if(move&&!move.dataset.bound){
       move.dataset.bound='1';
