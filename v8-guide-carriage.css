@@ -1,21 +1,16 @@
-/* v8.6.17 — PP2 moving guide carriage, clearly visible in the machine scene */
-.machine-scene.pp2-guides-enabled > #guide{display:none!important}
-#press2{overflow:visible!important}
-#pp2GuideAssembly{--pp2-guide-shift:0px;position:absolute;left:-44px;top:45px;width:48px;height:162px;z-index:24;transform:translateX(var(--pp2-guide-shift));transition:transform .13s linear;pointer-events:none}
-#pp2GuideAssembly .pg-frame{position:absolute;right:0;top:0;width:42px;height:162px;border:6px solid #2c4657;border-right-width:10px;border-radius:10px 3px 3px 10px;background:linear-gradient(90deg,#12232e99,#3f596777);box-shadow:inset 0 0 0 2px #76909d,0 8px 18px #000a}
-#pp2GuideAssembly .pg-frame:before,#pp2GuideAssembly .pg-frame:after{content:"";position:absolute;left:7px;right:5px;height:8px;border-radius:4px;background:linear-gradient(180deg,#8297a1,#263943);border:1px solid #9caab0}
-#pp2GuideAssembly .pg-frame:before{top:30px}#pp2GuideAssembly .pg-frame:after{bottom:30px}
-#pp2GuideAssembly .pg-finger{position:absolute;right:34px;width:68px;height:9px;border-radius:5px 2px 2px 5px;background:linear-gradient(180deg,#6d838d,#263842);border:1px solid #93a4ac;box-shadow:0 3px 7px #0008;transform-origin:right center;transition:.13s linear}
-#pp2GuideAssembly .pg-finger:before{content:"";position:absolute;left:-5px;top:1px;width:9px;height:5px;border-radius:3px;background:#aab6bb}
-#pp2GuideAssembly .f1{top:18px}#pp2GuideAssembly .f2{top:57px}#pp2GuideAssembly .f3{top:96px}#pp2GuideAssembly .f4{top:135px}
-#pp2GuideAssembly .pg-label{position:absolute;right:-5px;top:-29px;padding:5px 7px;border-radius:8px;background:#06121ced;border:1px solid #507992;color:#bceaff;font-size:6px;font-weight:900;white-space:nowrap;letter-spacing:.04em;box-shadow:0 5px 12px #0008}
-#pp2GuideAssembly .pg-state{position:absolute;right:-4px;bottom:-29px;padding:5px 7px;border-radius:8px;background:#06121cf2;border:1px solid #405e70;color:#c4d5df;font-size:6px;font-weight:900;white-space:nowrap}
-#pp2GuideAssembly.moving .pg-frame{border-color:#b88827;box-shadow:inset 0 0 0 2px #ffdc73,0 0 20px #e8b33955}
-#pp2GuideAssembly.moving .pg-finger{border-color:#d2a844;background:linear-gradient(180deg,#a07b28,#4d3a13)}
-#pp2GuideAssembly.closed .pg-frame{border-color:#34795c;box-shadow:inset 0 0 0 2px #88dfb5,0 0 18px #49c98c55}
-#pp2GuideAssembly.closed .pg-finger{border-color:#63b58e;background:linear-gradient(180deg,#568b72,#284d3d)}
-#pp2GuideAssembly.fault .pg-frame,#pp2GuideAssembly.fault .pg-finger{border-color:#c64d59!important;box-shadow:0 0 18px #ef515166}
-.guide-readout{position:absolute;right:8px;top:73px;z-index:30;width:210px;padding:8px 9px;border-radius:10px;background:#06101af2;border:1px solid #3e6073;color:#afc5d2;font-size:7px;line-height:1.45;box-shadow:0 8px 20px #0008}.guide-readout strong{display:block;color:#8edcff;font-size:8px;margin-bottom:3px}.guide-readout b{color:#eef9ff}.guide-readout .good{color:#91efbd}.guide-readout .move{color:#ffd879}.guide-readout .bad{color:#ffadb5}
+/* v8.6.14 — PP2 moving guide carriage, based on real machine/video */
+#press2{overflow:visible}
+#press2 #guide.guide{position:absolute!important;left:-54px!important;right:auto!important;top:42px!important;width:58px!important;height:164px!important;z-index:14!important;background:none!important;border:0!important;transform:translateX(var(--guide-x,0px))!important;transition:transform .13s linear!important;pointer-events:none}
+#press2 #guide.guide:before{content:"";position:absolute;right:-54px;top:69px;width:58px;height:14px;border-radius:4px;background:linear-gradient(180deg,#536b79,#172a35);border:1px solid #7892a0;box-shadow:0 4px 10px #0008}
+#press2 #guide.guide .gc-frame{position:absolute;inset:0;border:7px solid #263b49;border-right-width:10px;border-radius:9px 3px 3px 9px;box-shadow:inset 0 0 0 2px #6c8795,0 8px 16px #0009;background:linear-gradient(90deg,#14263266,#314a5855)}
+#press2 #guide.guide .gc-frame:before,#press2 #guide.guide .gc-frame:after{content:"";position:absolute;left:8px;right:8px;height:8px;border-radius:4px;background:linear-gradient(180deg,#738b96,#263b47);border:1px solid #8ca0a8}
+#press2 #guide.guide .gc-frame:before{top:28px}#press2 #guide.guide .gc-frame:after{bottom:28px}
+#press2 #guide.guide .gc-label{position:absolute;left:-8px;top:-25px;padding:4px 6px;border-radius:7px;background:#07131ddb;border:1px solid #56809a;color:#bfeaff;font-size:6px;font-weight:900;white-space:nowrap;letter-spacing:.04em}
+#press2 #guide.guide .gc-state{position:absolute;left:-7px;bottom:-25px;padding:4px 6px;border-radius:7px;background:#07131dee;border:1px solid #405d70;color:#a7bac8;font-size:6px;font-weight:800;white-space:nowrap}
+#press2 #guide.guide.moving .gc-frame{border-color:#b38a27;box-shadow:inset 0 0 0 2px #ffd76c,0 0 16px #e2b53855}
+#press2 #guide.guide.closed .gc-frame{border-color:#31765a;box-shadow:inset 0 0 0 2px #78d8ac,0 0 14px #4bc58c44}
+#press2 #guide.guide.fault .gc-frame{border-color:#b53d49;box-shadow:inset 0 0 0 2px #ff8d98,0 0 18px #ef515166}
+.guide-readout{position:absolute;right:9px;top:72px;z-index:22;width:196px;padding:7px 8px;border-radius:9px;background:#06101aed;border:1px solid #3e6073;color:#a9bfcd;font-size:7px;line-height:1.4;box-shadow:0 7px 18px #0007}.guide-readout strong{display:block;color:#8edcff;font-size:8px;margin-bottom:2px}.guide-readout b{color:#eaf8ff}.guide-readout .good{color:#91efbd}.guide-readout .move{color:#ffd879}.guide-readout .bad{color:#ffadb5}
 .guide-manual-controls{margin:8px 0;padding:9px;border:1px solid #35566d;background:#091723;border-radius:10px}.guide-manual-controls>b{display:block;color:#8edcff;font-size:9px;margin-bottom:7px}.guide-manual-controls .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}.guide-manual-controls button{min-height:38px;border-radius:9px;border:1px solid #3b586d;background:#16283a;font-size:9px;font-weight:900}.guide-manual-controls small{display:block;margin-top:6px;color:#8298a7;font-size:7px;line-height:1.35}
 .guide-hmi-card{border-color:#6d8a9b!important}.guide-hmi-card b{color:#18465e!important}.node-guide-out{outline:1px solid #56809a33}
-@media(max-width:620px){#pp2GuideAssembly{left:-38px;top:49px;width:42px;height:150px}#pp2GuideAssembly .pg-frame{width:38px;height:150px}#pp2GuideAssembly .pg-finger{right:30px;width:58px;height:8px}#pp2GuideAssembly .f1{top:17px}#pp2GuideAssembly .f2{top:53px}#pp2GuideAssembly .f3{top:89px}#pp2GuideAssembly .f4{top:125px}.guide-readout{right:6px;top:74px;width:178px;font-size:6px}.guide-readout strong{font-size:7px}#pp2GuideAssembly .pg-label,#pp2GuideAssembly .pg-state{font-size:5px}.guide-manual-controls .row{grid-template-columns:1fr}}
+@media(max-width:620px){#press2 #guide.guide{left:-47px!important;width:51px!important;height:148px!important}.guide-readout{right:6px;top:70px;width:172px;font-size:6px}.guide-readout strong{font-size:7px}#press2 #guide.guide .gc-label,#press2 #guide.guide .gc-state{font-size:5px}.guide-manual-controls .row{grid-template-columns:1fr}}

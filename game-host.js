@@ -14,22 +14,22 @@ function restoreMenuLinks(d){
     if(training)training.after(b);else menu.appendChild(b);
   }
   const home=d.getElementById('homeBtn');
-  if(home)home.onclick=()=>{window.location.href='./index.html?v=8.6.17';};
+  if(home)home.onclick=()=>{window.location.href='./index.html?v=8.6.16';};
 }
 frame.addEventListener('load',()=>{
   const d=frame.contentDocument,w=frame.contentWindow;
   if(!d||!w)return;
-  if(!d.querySelector('link[href*="menu-modern.css"]'))inject(d,'link',{rel:'stylesheet',href:'./menu-modern.css?v=8.6.17'});
-  if(!d.querySelector('link[href*="v8-training.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-training.css?v=8.6.17'});
-  if(!d.querySelector('link[href*="v8-lift-table.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-lift-table.css?v=8.6.17'});
-  if(!d.querySelector('link[href*="v8-guide-carriage.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-guide-carriage.css?v=8.6.17'});
-  const shell=inject(d,'script',{src:'./v8-shell.js?v=8.6.17'});
+  if(!d.querySelector('link[href*="menu-modern.css"]'))inject(d,'link',{rel:'stylesheet',href:'./menu-modern.css?v=8.6.16'});
+  if(!d.querySelector('link[href*="v8-training.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-training.css?v=8.6.16'});
+  if(!d.querySelector('link[href*="v8-lift-table.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-lift-table.css?v=8.6.16'});
+  if(!d.querySelector('link[href*="v8-guide-carriage.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-guide-carriage.css?v=8.6.16'});
+  const shell=inject(d,'script',{src:'./v8-shell.js?v=8.6.16'});
   shell.onload=()=>{
-    const ext=inject(d,'script',{src:'./v8-training.js?v=8.6.17'});
+    const ext=inject(d,'script',{src:'./v8-training.js?v=8.6.16'});
     ext.onload=()=>{
-      const lift=inject(d,'script',{src:'./v8-lift-table.js?v=8.6.17'});
+      const lift=inject(d,'script',{src:'./v8-lift-table.js?v=8.6.16'});
       lift.onload=()=>{
-        const guide=inject(d,'script',{src:'./v8-guide-carriage.js?v=8.6.17'});
+        const guide=inject(d,'script',{src:'./v8-guide-carriage.js?v=8.6.16'});
         guide.onload=()=>{
           restoreMenuLinks(d);
           setTimeout(()=>{
