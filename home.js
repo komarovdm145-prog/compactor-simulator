@@ -11,8 +11,8 @@ $$('[data-difficulty]').forEach(b=>b.onclick=()=>{opt.difficulty=b.dataset.diffi
 $('#optionsBtn').onclick=()=>$('#optionsModal').classList.remove('hidden');
 $('#aboutBtn').onclick=()=>$('#aboutModal').classList.remove('hidden');
 $$('[data-close]').forEach(b=>b.onclick=()=>b.closest('.modal').classList.add('hidden'));
-$('#startBtn').onclick=()=>location.href='./game.html?v=8.6.16#start';
+$('#startBtn').onclick=()=>location.href='./game.html?v=8.6.17#start';
 $('#trainingBtn').onclick=()=>location.href='./training.html?v=8.6.11';
 $('#trainingTestBtn').onclick=()=>location.href='./test.html?v=6';
-$('#examBtn').onclick=()=>location.href='./game.html?v=8.6.16#exam';
+$('#examBtn').onclick=()=>location.href='./game.html?v=8.6.17#exam';
 sync();
