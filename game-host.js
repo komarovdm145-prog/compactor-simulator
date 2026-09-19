@@ -3,17 +3,21 @@ function inject(doc,tag,attrs){const e=doc.createElement(tag);Object.entries(att
 frame.addEventListener('load',()=>{
   const d=frame.contentDocument,w=frame.contentWindow;
   if(!d||!w)return;
-  if(!d.querySelector('link[href*="menu-modern.css"]'))inject(d,'link',{rel:'stylesheet',href:'./menu-modern.css?v=8.6'});
-  if(!d.querySelector('link[href*="v8-training.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-training.css?v=8.6'});
-  const shell=inject(d,'script',{src:'./v8-shell.js?v=8.6'});
+  if(!d.querySelector('link[href*="menu-modern.css"]'))inject(d,'link',{rel:'stylesheet',href:'./menu-modern.css?v=8.6.7'});
+  if(!d.querySelector('link[href*="v8-training.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-training.css?v=8.6.7'});
+  if(!d.querySelector('link[href*="v8-lift-table.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-lift-table.css?v=8.6.7'});
+  const shell=inject(d,'script',{src:'./v8-shell.js?v=8.6.7'});
   shell.onload=()=>{
-    const ext=inject(d,'script',{src:'./v8-training.js?v=8.6'});
+    const ext=inject(d,'script',{src:'./v8-training.js?v=8.6.7'});
     ext.onload=()=>{
-      setTimeout(()=>{
-        const action=location.hash.replace('#','');
-        if(action==='start')d.getElementById('menuStart')?.click();
-        if(action==='exam')d.getElementById('menuExam')?.click();
-      },120);
+      const lift=inject(d,'script',{src:'./v8-lift-table.js?v=8.6.7'});
+      lift.onload=()=>{
+        setTimeout(()=>{
+          const action=location.hash.replace('#','');
+          if(action==='start')d.getElementById('menuStart')?.click();
+          if(action==='exam')d.getElementById('menuExam')?.click();
+        },120);
+      };
     };
   };
 });
