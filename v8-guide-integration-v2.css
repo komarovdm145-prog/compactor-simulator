@@ -5,26 +5,26 @@
 #machineScene #coil.compressed{height:158px!important}
 
 /* One side-view KNB channel is shown physically on PP1; the 4-head map remains below. */
-#press1 .gv2-knb{position:absolute;right:-87px;top:116px;width:88px;height:68px;z-index:19;pointer-events:none}
-#press1 .gv2-knb-body{position:absolute;left:0;top:4px;width:43px;height:60px;border:2px solid #8097a3;border-radius:7px;background:linear-gradient(90deg,#162a36,#3d5867,#1d3440);box-shadow:0 7px 14px #0008}
-#press1 .gv2-knb-body:before{content:"";position:absolute;left:9px;top:15px;width:21px;height:21px;border-radius:50%;background:#a8b5bb;border:2px solid #d6dfe2;box-shadow:inset 0 0 0 4px #71848e}
-#press1 .gv2-short-guide{position:absolute;left:39px;top:23px;width:47px;height:17px;border:2px solid #8aa0aa;border-radius:4px;background:linear-gradient(#677f8a,#223843);box-shadow:0 3px 8px #0008}
-#press1 .gv2-short-guide:before,#press1 .gv2-short-guide:after{content:"";position:absolute;left:4px;right:4px;height:3px;background:#b9c5ca;border-radius:3px}
+#press1 .gv2-knb{position:absolute;right:-51px;top:116px;width:52px;height:68px;z-index:19;pointer-events:none}
+#press1 .gv2-knb-body{position:absolute;left:0;top:7px;width:31px;height:54px;border:2px solid #8097a3;border-radius:7px;background:linear-gradient(90deg,#162a36,#3d5867,#1d3440);box-shadow:0 7px 14px #0008}
+#press1 .gv2-knb-body:before{content:"";position:absolute;left:6px;top:15px;width:16px;height:16px;border-radius:50%;background:#a8b5bb;border:2px solid #d6dfe2;box-shadow:inset 0 0 0 3px #71848e}
+#press1 .gv2-short-guide{position:absolute;left:27px;top:24px;width:25px;height:16px;border:2px solid #8aa0aa;border-radius:4px;background:linear-gradient(#677f8a,#223843);box-shadow:0 3px 8px #0008}
+#press1 .gv2-short-guide:before,#press1 .gv2-short-guide:after{content:"";position:absolute;left:3px;right:3px;height:2px;background:#b9c5ca;border-radius:3px}
 #press1 .gv2-short-guide:before{top:3px}#press1 .gv2-short-guide:after{bottom:3px}
-#press1 .gv2-head-tip{position:absolute;right:-2px;top:27px;width:4px;height:9px;background:#d8e2e6;border-radius:2px}
-#press1 .gv2-knb-label{position:absolute;left:0;top:-15px;white-space:nowrap;padding:3px 5px;border-radius:5px;background:#06131dcc;border:1px solid #42677b;color:#bfe9fb;font-size:6px;font-weight:900;letter-spacing:.03em}
+#press1 .gv2-head-tip{position:absolute;right:-2px;top:2px;width:4px;height:8px;background:#d8e2e6;border-radius:2px}
+#press1 .gv2-knb-label{position:absolute;left:-2px;top:-12px;white-space:nowrap;padding:3px 5px;border-radius:5px;background:#06131dcc;border:1px solid #42677b;color:#bfe9fb;font-size:6px;font-weight:900;letter-spacing:.03em}
 
 /* Real concept: the carriage/drive belongs to PP2, while only the wire channel spans toward KNB. */
 #press2 #guide.guide{position:absolute!important;left:-170px!important;right:auto!important;top:116px!important;width:170px!important;height:68px!important;z-index:20!important;background:none!important;border:0!important;transform:none!important;transition:none!important;pointer-events:none!important}
 #press2 #guide.guide>span{display:none!important}
-#press2 #guide.guide .gv2-drive{position:absolute;right:-1px;top:5px;width:49px;height:58px;border:2px solid #708a97;border-radius:6px;background:linear-gradient(90deg,#162c38,#455f6d,#1d3542);box-shadow:0 7px 14px #0008}
-#press2 #guide.guide .gv2-drive:after{content:"";position:absolute;right:-29px;top:22px;width:30px;height:13px;border:1px solid #879ba4;background:repeating-linear-gradient(90deg,#6f858f 0 4px,#293d47 4px 8px)}
-#press2 #guide.guide .gv2-channel{position:absolute;right:45px;top:22px;width:var(--gv2-len,0px);height:18px;border:2px solid #8198a3;border-radius:4px 2px 2px 4px;background:linear-gradient(#657e89,#203741);box-shadow:0 3px 8px #0008;transition:none}
-#press2 #guide.guide .gv2-channel:before,#press2 #guide.guide .gv2-channel:after{content:"";position:absolute;left:4px;right:4px;height:3px;background:#b7c4c9;border-radius:3px}
+#press2 #guide.guide .gv2-drive{position:absolute;right:-1px;top:6px;width:49px;height:56px;border:2px solid #708a97;border-radius:6px;background:linear-gradient(90deg,#162c38,#455f6d,#1d3542);box-shadow:0 7px 14px #0008}
+#press2 #guide.guide .gv2-drive:after{content:"";position:absolute;right:-29px;top:21px;width:30px;height:13px;border:1px solid #879ba4;background:repeating-linear-gradient(90deg,#6f858f 0 4px,#293d47 4px 8px)}
+#press2 #guide.guide .gv2-channel{position:absolute;right:10px;top:23px;width:var(--gv2-len,0px);height:17px;border:2px solid #8198a3;border-radius:4px 2px 2px 4px;background:linear-gradient(#657e89,#203741);box-shadow:0 3px 8px #0008;transition:none}
+#press2 #guide.guide .gv2-channel:before,#press2 #guide.guide .gv2-channel:after{content:"";position:absolute;left:4px;right:4px;height:2px;background:#b7c4c9;border-radius:3px}
 #press2 #guide.guide .gv2-channel:before{top:3px}#press2 #guide.guide .gv2-channel:after{bottom:3px}
-#press2 #guide.guide .gv2-mouth{position:absolute;left:-3px;top:2px;width:6px;height:10px;border-radius:3px;background:#d7e1e5}
-#press2 #guide.guide .gv2-origin{position:absolute;right:44px;top:30px;width:1px;height:1px}
-#press2 #guide.guide .gv2-guide-label{position:absolute;right:0;top:-15px;white-space:nowrap;padding:3px 5px;border-radius:5px;background:#06131dcc;border:1px solid #42677b;color:#bfe9fb;font-size:6px;font-weight:900;letter-spacing:.03em}
+#press2 #guide.guide .gv2-mouth{position:absolute;left:-3px;top:2px;width:6px;height:9px;border-radius:3px;background:#d7e1e5}
+#press2 #guide.guide .gv2-origin{position:absolute;right:9px;top:31px;width:1px;height:1px}
+#press2 #guide.guide .gv2-guide-label{position:absolute;right:-2px;top:-12px;white-space:nowrap;padding:3px 5px;border-radius:5px;background:#06131dcc;border:1px solid #42677b;color:#bfe9fb;font-size:6px;font-weight:900;letter-spacing:.03em}
 #press2 #guide.guide.gv2-moving .gv2-channel,#press2 #guide.guide.gv2-moving .gv2-drive{border-color:#d0a33f;box-shadow:0 0 14px #e4b64855}
 #press2 #guide.guide.gv2-locked .gv2-channel{border-color:#4dac82;box-shadow:0 0 14px #5de0aa55}
 
@@ -40,8 +40,9 @@
 .guide-readout{top:auto!important;bottom:84px!important;right:8px!important;width:188px!important;font-size:6px!important}
 .guide-readout strong{font-size:7px!important}
 
+@media(min-width:651px){#machineScene #press1{left:18%!important}#machineScene #press2{right:18%!important}}
 @media(max-width:620px){
- #press1 .gv2-knb{right:-73px;top:108px;width:74px;height:62px;transform:scale(.88);transform-origin:left center}
+ #press1 .gv2-knb{right:-48px;top:108px;width:49px;height:62px}
  #press2 #guide.guide{left:-145px!important;top:108px!important;width:145px!important;height:62px!important}
  #press2 #guide.guide .gv2-drive{transform:scale(.9);transform-origin:right center}
  .gv2-cycle-readout{top:69px;min-width:160px;font-size:6px}
