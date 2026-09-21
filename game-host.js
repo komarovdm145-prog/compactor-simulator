@@ -10,11 +10,11 @@ function restoreMenuLinks(d){
     b.style.borderColor='#8b6a2f';
     b.style.background='linear-gradient(145deg,#322817,#1b1a16)';
     b.style.color='#ffe4a3';
-    b.onclick=()=>{window.location.href='./test.html?v=10';};
+    b.onclick=()=>{window.location.href='./test.html?v=11';};
     if(training)training.after(b);else menu.appendChild(b);
   }
   const home=d.getElementById('homeBtn');
-  if(home)home.onclick=()=>{window.location.href='./index.html?v=8.6.18';};
+  if(home)home.onclick=()=>{window.location.href='./index.html?v=8.6.20';};
 }
 frame.addEventListener('load',()=>{
   const d=frame.contentDocument,w=frame.contentWindow;
@@ -23,6 +23,7 @@ frame.addEventListener('load',()=>{
   if(!d.querySelector('link[href*="v8-training.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-training.css?v=8.6.18'});
   if(!d.querySelector('link[href*="v8-lift-table.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-lift-table.css?v=8.6.18'});
   if(!d.querySelector('link[href*="v8-guide-cinematic-v3.css"]'))inject(d,'link',{rel:'stylesheet',href:'./v8-guide-cinematic-v3.css?v=8.6.18'});
+  if(!d.querySelector('link[href*="lift-coil-sync.css"]'))inject(d,'link',{rel:'stylesheet',href:'./lift-coil-sync.css?v=1'});
   const shell=inject(d,'script',{src:'./v8-shell.js?v=8.6.18'});
   shell.onload=()=>{
     const ext=inject(d,'script',{src:'./v8-training.js?v=8.6.18'});
