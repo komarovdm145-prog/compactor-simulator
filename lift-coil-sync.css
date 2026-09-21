@@ -1,0 +1,25 @@
+/* Lift/coil visual sync — when the lift table rises or lowers, the coil rides with it.
+   Applies to the main game, normal training and TEST training. */
+
+/* Main game: match the coil-holder vertical travel to the lift-table travel. */
+.machine-scene.table-half .coil-holder{transform:translate(-50%,-21px)!important}
+.machine-scene.table-full .coil-holder{transform:translate(-50%,-43px)!important}
+
+/* Standalone training — slide 3 prepress demonstration. */
+.press-demo .coil.demo{transition:width .7s cubic-bezier(.2,.8,.2,1),transform .55s cubic-bezier(.2,.8,.2,1)!important}
+.press-demo.table-half .coil.demo{transform:translate(-50%,-17px)!important}
+.press-demo.table-full .coil.demo,.press-demo.squeezed .coil.demo{transform:translate(-50%,-34px)!important}
+
+/* Standalone training — full-cycle side view. */
+.cycle-side .cycle-coil{transition:width .7s,transform .55s!important}
+.cycle-demo.table-half .cycle-coil{transform:translate(-50%,-17px)!important}
+.cycle-demo.table-full .cycle-coil,.cycle-demo.pressed .cycle-coil{transform:translate(-50%,-34px)!important}
+.cycle-demo.lowering .cycle-coil{transform:translateX(-50%)!important}
+
+/* TEST slide 5 — integrated compactor + guide cycle.
+   Home tableY=20px; every coil offset below equals the table's rise from HOME. */
+.ig-coil{transition:width .75s ease,transform .65s ease!important}
+.ig-scene.state-home .ig-coil,.ig-scene.state-done .ig-coil{transform:translate(-50%,0)!important}
+.ig-scene.state-table .ig-coil,.ig-scene.state-approach .ig-coil{transform:translate(-50%,-13px)!important}
+.ig-scene.state-center .ig-coil,.ig-scene.state-contact .ig-coil,.ig-scene.state-reverse .ig-coil,.ig-scene.state-tie .ig-coil{transform:translate(-50%,-27px)!important}
+.ig-scene.state-return .ig-coil{transform:translate(-50%,-12px)!important}
